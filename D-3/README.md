@@ -1,5 +1,5 @@
 # Warmup D-3 (2025/6/13)
-- Planning to go through some tutorials and figure out potential pitfalls before D-Day(6/17)
+- Planning to go through some tutorials and figure out potential pitfalls before D-Day(6/16)
 - Done [mojo puzzle](https://builds.modular.com/puzzles/introduction.html) ([my solutions](https://github.com/Tcc0403/mojo-gpu-puzzles/tree/solution/problems))
 
 ## Note
