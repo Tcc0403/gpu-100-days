@@ -26,10 +26,17 @@ for j in range(CONV):
 
 ### Host-side synchronization
 
-`barrier()` is block-level synchronization
-
-If we want to perform a synchronzation across blocks, we must do a host-side synchronization
+A host-side synchronization can ensure previous kernel is finished.
 `DeviceContext.synchronize()` ([doc](https://docs.modular.com/mojo/stdlib/gpu/host/device_context/DeviceContext/#synchronize))
+```mojo
+# After both kernels complete, before reading results on host
+ctx.synchronize()  # Host waits for GPU to finish
+
+with out.map_to_host() as out_host:  # Now safe to read GPU results
+    print("out:", out_host)
+```
+
+`barrier()` is block-level synchronization
 
 ```mojo
 from gpu.host import DeviceContext
