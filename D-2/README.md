@@ -66,12 +66,21 @@ while stride > 0:
     stride //= 2
 ```
 
-Personally I believe it never happens since we already limit active threads with `local_i < stride` and the indices they access are `cache[local_i]` `cache[local_i + stride]` which are always different across threads. There should be no read-write hazards, but surely we can make it safer at the cost of extra synchronization `barrier()` each loop.
+Personally I believe it never happens since
+1. we already limit active threads with `local_i < stride` and 
+2. the indices they access are `cache[local_i]` `cache[local_i + stride]` which are always different across threads. 
+
+There should be no read-write hazards, but surely we can make it safer at the cost of extra synchronization `barrier()` each loop.
 
 ## Tiled MatMul
+
 Mojo has high-level APIs, maintaining the performance benefits of tiling while providing cleaner abstractions. ([example in Puzzle 14](https://builds.modular.com/puzzles/puzzle_14/tiled.html#solution-idiomatic-layouttensor-tiling))
+
 ### LayoutTensor tile API
-Directly call `.tile[]()` and it can return the specific tile given `[TILE_ROW_DIM, TILE_COL_DIM]` and `(tile_position_in_row, tile_position_in_col)`. For instance, `a.tile[16, 32](2, 3)` will return a $16 \times 32$ tile that is located at position (2, 3) from block-wise perspective.
+
+Directly call `.tile[]()` and it can return the specific tile given `[TILE_ROW_DIM, TILE_COL_DIM]` and `(tile_position_in_row, tile_position_in_col)`. 
+
+For instance, `a.tile[16, 32](2, 3)` will return a $16 \times 32$ tile that is located at position (2, 3) from block-wise perspective.
 
 Another example from Puzzle 14:
 ```mojo
@@ -81,9 +90,13 @@ b_tile = b.tile[TPB, TPB](idx, block_idx.x)
 ```
 
 ### Asynchronous memory operations
+
 `copy_dram_to_sram_async[]()` ([doc](https://docs.modular.com/mojo/kernels/layout/layout_tensor/copy_dram_to_sram_async/))
+
 Passing destination and source `LayoutTensor` and everything is done, no need to calculate indices by hands. 
+
 `[thread_layout=...]` determines how the workload is distributed among threads. 
+
 It also provides advanced features such as `swizzle`, `fill`, `eviction_policy`, etc...
 
 Example from Puzzle 14:
