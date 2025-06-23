@@ -4,7 +4,7 @@ import torch
 from max.torch import CustomOpLibrary
 
 # Load the compiled Mojo package containing our custom operations
-mojo_kernels = Path(__file__).parent / "ops"
+mojo_kernels = Path(__file__).parent.joinpath("ops")
 ops = CustomOpLibrary(mojo_kernels)
 
 @torch.compile
