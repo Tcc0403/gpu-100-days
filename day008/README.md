@@ -1,5 +1,5 @@
 # Day 008 (2025/6/23)
-- Created a directory for pytorch custom ops ([ref](https://docs.modular.com/max/tutorials/custom-kernels-pytorch))
+- Created a [directory](https://github.com/Tcc0403/gpu-100-days/tree/main/pytorch_custom_ops) for pytorch custom ops ([mojo doc](https://docs.modular.com/max/tutorials/custom-kernels-pytorch))
     - Set up environment with pixi
         - To enable CUDA, we need to add system-requirements in `pixi.toml' ([link](https://pixi.sh/dev/workspace/system_requirements/#using-cuda-in-pixi))
     - Added unit tests (pytest) for it
