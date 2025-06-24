@@ -58,6 +58,7 @@ struct Softmax:
     @staticmethod
     fn execute[
         target: StaticString,
+        # dtype: DType = DType.float32,  This parameter must be given when calling from torch.compile()
     ](output: OutputTensor, input: InputTensor, ctx: DeviceContextPtr,) raises:
         @parameter
         if target == "gpu":
