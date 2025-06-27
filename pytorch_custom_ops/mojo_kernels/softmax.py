@@ -7,9 +7,9 @@ from max.torch import CustomOpLibrary
 mojo_kernels = Path(__file__).parent.joinpath("ops")
 ops = CustomOpLibrary(mojo_kernels)
 
-@torch.compile
-def grayscale(pic):
-    output = pic.new_empty(pic.shape[:-1])  # Remove color channel dimension
-    ops.grayscale(output, pic)  # Call our Mojo custom op
-    return output
 
+@torch.compile
+def softmax(input: torch.Tensor):
+    output = torch.empty_like(input)
+    ops.softmax(output, input)
+    return output
