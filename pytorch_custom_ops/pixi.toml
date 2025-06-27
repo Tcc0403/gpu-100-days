@@ -1,7 +1,7 @@
 [workspace]
 authors = ["Tcc0403 <76503978+Tcc0403@users.noreply.github.com>"]
 channels = ["https://conda.modular.com/max-nightly", "conda-forge"]
-name = "pytorch_custom_ops"
+name = "mojo_kernels"
 platforms = ["linux-64"]
 version = "0.1.0"
 
